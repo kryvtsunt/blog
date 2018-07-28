@@ -1,15 +1,32 @@
 <% include ./partials/header.ejs %>
-<div class="ui text container">
-    <br/>
-    <% blog.forEach(function(post) { %>
-    <div>
-        <h2> <%= post.title %></h2>
-        <img src="<%=post.image%>" width="300px">
-        <h6><%= post.created %></h6>
-        <p> <%= post.body.substring(0, 100) %>...</p>
-        <a href="/posts/<%= post._id %>"> Read More </a>
+<div class="ui main text container">
+    <div class="ui huge header"> My Blog </div>
+    <div class="ui top attached segment">
+        <div class="ui divided items">
+            <% blog.forEach(function(post) { %>
+            <div class="item">
+                <div class="image">
+                    <img src="<%= post.image %>">
+                </div>
+                <div class="content">
+                    <a class="header" href="/posts/<%= post._id %>"> <%= post.title %> </a>
+                    <div class="meta">
+                        <span><%= post.created.toDateString() %></span>
+                    </div>
+                    <div class="description">
+                        <p><%- post.body.substring(0, 50) %>...</p>
+                    </div>
+                    <div class="extra">
+                        <a class="ui floated basic blue button" href="/posts/<%= post._id %>"> Read More
+                            <i class="right chevron icon"></i></a>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
     </div>
-    <% }) %>
+    <br/>
+
 </div>
 
 <% include ./partials/footer.ejs %>
