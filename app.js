@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var app = express();
 
 mongoose.connect('mongodb://localhost/tk-blog');
+app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 
 var blogSchema = new mongoose.Schema({
@@ -15,11 +16,6 @@ var blogSchema = new mongoose.Schema({
 
 var Blog = mongoose.model("Blog", blogSchema);
 
-Blog.create({
-    title: 'Test',
-    body: 'Body'
-});
-
 app.get('/blogs', function(req, res){
     Blog.find({}, function(err, blogs){
         if(err){
@@ -28,8 +24,8 @@ app.get('/blogs', function(req, res){
             res.render("index", {blogs: blogs});
         }
     })
-    res.send('index');
 });
+
 
 app.get('/', function(req, res){
     res.redirect('/blogs');
