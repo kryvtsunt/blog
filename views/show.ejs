@@ -13,6 +13,12 @@
             <p> <%- post.body %></p>
         </div>
     </div>
+    <br/>
+
+    <a class="ui orange basic button" href="/posts/<%= post._id%>/edit"> Edit </a>
+    <form style="display: inline" action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+        <button  class="ui red basic button"> Delete </button>
+    </form>
 </div>
 
 <% include partials/footer.ejs%>

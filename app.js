@@ -71,12 +71,23 @@ app.post("/posts", function(req, res){
 app.put('/posts/:id', function(req, res){
     Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, blog) {
         if (err) {
-            res.redirect('/blogs');
+            res.redirect('/posts');
         } else {
-            res.redirect("/blogs/" + req.params.id);
+            res.redirect("/posts/" + req.params.id);
         }
     });
 });
+
+app.delete('/posts/:id', function(req, res){
+    Blog.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect('/posts');
+        } else {
+            res.redirect('/posts');
+
+        }
+    })
+})
 
 app.listen(process.env.PORT || 4000, function(){
     console.log('SERVER IS RUNNING');
