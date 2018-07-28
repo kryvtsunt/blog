@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var expressSanitizer = require('express-sanitizer');
 var mongoose = require('mongoose');
 var app = express();
 
@@ -8,6 +9,7 @@ mongoose.connect('mongodb://localhost/tk-blog');
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
+app.use(expressSanitizer());
 
 var blogSchema = new mongoose.Schema({
     title: String,
@@ -59,6 +61,7 @@ app.get('/posts/:id/edit', function(req, res){
 
 
 app.post("/posts", function(req, res){
+    req.body.blog.body = req.sanitize(req.body.blog.body);
     Blog.create(req.body.blog, function(err, newBlog){
         if(err){
             res.render('new')
