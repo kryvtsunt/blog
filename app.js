@@ -16,7 +16,7 @@ var blogSchema = new mongoose.Schema({
 
 var Blog = mongoose.model("Blog", blogSchema);
 
-app.get('/blogs', function(req, res){
+app.get('/posts', function(req, res){
     Blog.find({}, function(err, blogs){
         if(err){
             console.log("ERROR!");
@@ -28,8 +28,22 @@ app.get('/blogs', function(req, res){
 
 
 app.get('/', function(req, res){
-    res.redirect('/blogs');
+    res.redirect('/posts');
 });
+
+app.get('/posts/new', function(req, res){
+    res.render('new');
+})
+
+app.post("/posts", function(req, res){
+    Blog.create(req.body.blog, function(err, newBlog){
+        if(err){
+            res.render('new')
+        } else {
+            res.redirect('/posts');
+        }
+    })
+})
 
 app.listen(process.env.PORT || 4000, function(){
     console.log('SERVER IS RUNNING');

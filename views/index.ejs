@@ -1,11 +1,11 @@
 <% include partials/header.ejs%>
 <h1> Simple Blog </h1>
-<% blogs.forEach(function(blog) { %>
+<% blogs.forEach(function(post) { %>
 <div>
-    <h2> <%=blog.title%></h2>
-    <img src="<%= blog.image %>" width="300px">
-    <span><%= blog.created %></span>
-    <p> <%= blog.body %></p>
+    <h2> <%=post.title%></h2>
+    <img src="<%= post.image %>" width="300px">
+    <span><%= post.created %></span>
+    <p> <%= post.body %></p>
 </div>
 <% }) %>
 
