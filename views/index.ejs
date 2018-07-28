@@ -1,14 +1,17 @@
-<% include partials/header.ejs%>
-<h1> Simple Blog </h1>
-<% blogs.forEach(function(post) { %>
-<div>
-    <h2> <%=post.title%></h2>
-    <img src="<%= post.image %>" width="300px">
-    <span><%= post.created %></span>
-    <p> <%= post.body %></p>
+<% include ./partials/header.ejs %>
+<div class="ui text container">
+    <br/>
+    <% blog.forEach(function(post) { %>
+    <div>
+        <h2> <%= post.title %></h2>
+        <img src="<%=post.image%>" width="300px">
+        <h6><%= post.created %></h6>
+        <p> <%= post.body.substring(0, 100) %>...</p>
+        <a href="/posts/<%= post._id %>"> Read More </a>
+    </div>
+    <% }) %>
 </div>
-<% }) %>
 
-<% include partials/footer.ejs%>
+<% include ./partials/footer.ejs %>
 
 
