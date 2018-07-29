@@ -5,11 +5,24 @@ var expressSanitizer = require('express-sanitizer');
 var mongoose = require('mongoose');
 var app = express();
 
-mongoose.connect('mongodb://localhost/tk-blog');
+const URL = 'mongodb://admin:admin42@ds063134.mlab.com:63134/heroku_13h0wr5x';
+// const URL = 'mongodb://localhost/tk-blog'
+mongoose.connect(URL);
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(expressSanitizer());
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin",
+        "https://tk-blog.herokuapp.com");
+    res.header("Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods",
+        "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+    next();
+});
 
 var blogSchema = new mongoose.Schema({
     title: String,
@@ -17,6 +30,8 @@ var blogSchema = new mongoose.Schema({
     body: String,
     created: {type: Date, default: Date.now}
 });
+
+
 
 var Blog = mongoose.model("Blog", blogSchema);
 
